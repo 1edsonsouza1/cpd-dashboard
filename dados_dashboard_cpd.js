@@ -1,5 +1,5 @@
 ﻿window.dashboardData = [
-{"NF":"1489","origem":"26-DEP TELEVENDA","destino":"07-HQ BOA VISTA","valor":2134.6,"emissao":"2026-09-11T15:11:31","usuario":"FRANCO.M","diasAtraso":5.,"cgo":"851 - VENDA ENTRE COLIGADAS (QA-HQ)","status":"Pendente"},
+{"NF":"1489","origem":"26-DEP TELEVENDA","destino":"07-HQ BOA VISTA","valor":2134.6,"emissao":"2026-09-11T15:11:31","usuario":"FRANCO.M","diasAtraso":5.,"cgo":"851 - VENDA ENTRE COLIGADAS (QA-HQ)","status":"Resolvida"},
 {"NF":"1523","origem":"26-DEP TELEVENDA","destino":"41-CD MOSSORÓ","valor":939.89,"emissao":"2026-09-18T14:47:50","usuario":"DANDARA.B","diasAtraso":1.,"cgo":"851 - VENDA ENTRE COLIGADAS (QA-HQ)","status":"Pendente"},
 {"NF":"2024","origem":"28-NA BANANEIRAS","destino":"15-QA PATOS","valor":2841.,"emissao":"2026-09-23T08:48:14","usuario":"RAYANE.K","diasAtraso":1.,"cgo":"851 - VENDA ENTRE COLIGADAS (QA-HQ)","status":"Pendente"},
 {"NF":"2047","origem":"27-NA MACAU","destino":"10-QA MOSSORÓ","valor":1232.08,"emissao":"2026-08-26T10:43:30","usuario":"DANDARA.B","diasAtraso":21.,"cgo":"851 - VENDA ENTRE COLIGADAS (QA-HQ)","status":"Pendente"},
