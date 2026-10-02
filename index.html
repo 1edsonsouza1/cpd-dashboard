@@ -2919,178 +2919,75 @@ function render(){
    PREENCHER TABELA
 ========================================================= */
 
+/* =========================================================
+   PREENCHER TABELA (Ordenada por Dias de Atraso Decrescente)
+========================================================= */
+
 function preencherTabela(idTabela, registros){
 
-    const tbody =
-        document.getElementById(
-            idTabela
-        );
-
-
+    const tbody = document.getElementById(idTabela);
     tbody.innerHTML = "";
 
+    // Ordenação decrescente por dias de atraso
+    registros.sort((a, b) => {
+        const atrasoA = Number.isFinite(Number(a.diasAtraso)) ? Number(a.diasAtraso) : -Infinity;
+        const atrasoB = Number.isFinite(Number(b.diasAtraso)) ? Number(b.diasAtraso) : -Infinity;
 
-    registros.sort(
-        (a,b) => {
-
-            if(
-                a.status === 'Pendente' &&
-                b.status !== 'Pendente'
-            )
-                return -1;
-
-
-            if(
-                a.status !== 'Pendente' &&
-                b.status === 'Pendente'
-            )
-                return 1;
-
-
-            return String(a.NF)
-                .localeCompare(
-                    String(b.NF),
-                    'pt-BR',
-                    {
-                        numeric:true
-                    }
-                );
-
+        // Se os dias de atraso forem iguais, ordena por NF para desempatar
+        if (atrasoB !== atrasoA) {
+            return atrasoB - atrasoA; // Ordem decrescente (maior para o menor)
         }
-    );
 
+        return String(a.NF).localeCompare(String(b.NF), 'pt-BR', { numeric: true });
+    });
 
     if(!registros.length){
-
-        const tr =
-            document.createElement(
-                'tr'
-            );
-
-
+        const tr = document.createElement('tr');
         tr.innerHTML = `
-
-            <td
-                colspan="6"
-                class="empty-table">
-
+            <td colspan="6" class="empty-table">
                 Nenhuma nota encontrada.
-
             </td>
-
         `;
-
-
-        tbody.appendChild(
-            tr
-        );
-
-
+        tbody.appendChild(tr);
         return;
-
     }
 
-
     registros.forEach(x => {
+        const tr = document.createElement('tr');
 
-        const tr =
-            document.createElement(
-                'tr'
-            );
+        let statusClass = 'status-outro';
 
-
-        let statusClass =
-            'status-outro';
-
-
-        if(
-            x.status ===
-            'Pendente'
-        ){
-
-            statusClass =
-                'status-pendente';
-
+        if(x.status === 'Pendente'){
+            statusClass = 'status-pendente';
         }
-        else if(
-            x.status ===
-            'Resolvida'
-        ){
-
-            statusClass =
-                'status-resolvida';
-
+        else if(x.status === 'Resolvida'){
+            statusClass = 'status-resolvida';
         }
-
 
         const dias =
             x.diasAtraso === null ||
             x.diasAtraso === undefined ||
             x.diasAtraso === ""
                 ? "-"
-                : Number.isFinite(
-                    Number(x.diasAtraso)
-                  )
-                    ? Number(
-                        x.diasAtraso
-                      ).toLocaleString(
-                        'pt-BR'
-                      )
+                : Number.isFinite(Number(x.diasAtraso))
+                    ? Number(x.diasAtraso).toLocaleString('pt-BR')
                     : x.diasAtraso;
 
-
         tr.innerHTML = `
-
+            <td>${escaparHTML(x.NF)}</td>
+            <td>${escaparHTML(x.destino || "-")}</td>
+            <td>${escaparHTML(x.origem || "-")}</td>
             <td>
-                ${escaparHTML(
-                    x.NF
-                )}
-            </td>
-
-            <td>
-                ${escaparHTML(
-                    x.destino || "-"
-                )}
-            </td>
-
-            <td>
-                ${escaparHTML(
-                    x.origem || "-"
-                )}
-            </td>
-
-            <td>
-
-                <span
-                    class="status-badge ${statusClass}">
-
-                    ${escaparHTML(
-                        x.status || "-"
-                    )}
-
+                <span class="status-badge ${statusClass}">
+                    ${escaparHTML(x.status || "-")}
                 </span>
-
             </td>
-
-            <td>
-                ${dias}
-            </td>
-
-            <td>
-                ${escaparHTML(
-                    x.usuario || "-"
-                )}
-            </td>
-
+            <td>${dias}</td>
+            <td>${escaparHTML(x.usuario || "-")}</td>
         `;
 
-
-        tbody.appendChild(
-            tr
-        );
-
+        tbody.appendChild(tr);
     });
-
 }
 
 
